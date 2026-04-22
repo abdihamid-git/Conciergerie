@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobilité Sans Couture | Conciergerie Premium au Maroc</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#0F172A',
+                        'brand-gold': '#CBA135',
+                        'brand-sand': '#FDFBF7',
+                        'brand-light': '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #0F172A;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .tab-btn.active {
+            background-color: #0F172A;
+            color: #FDFBF7;
+            border-color: #0F172A;
+        }
+
+        .tab-btn.active .gold-text {
+            color: #CBA135;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(203, 161, 53, 0.2);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+
+    <!-- Chosen Palette: Nuit & Sable (Night Blue #0F172A, Warm Sand #FDFBF7, Champagne Gold #CBA135) -->
+    <!-- Application Structure Plan: The SPA is structured as an interactive executive briefing. It starts with a targeted value proposition (Hero), followed by data-driven justification (Analytics section) to build trust. The core offering is presented via an interactive tabbed comparison tool, avoiding cognitive overload. Supporting services and social proof are presented as distinct, easy-to-digest blocks leading to a clear CTA. This flow moves the user from 'Why you?' to 'Which option?' to 'Let's talk'. -->
+    <!-- Visualization & Content Choices: 1. Hero Toggle -> Goal: Personalization -> Method: JS Text Update -> Justification: Speaks directly to the two distinct targets (MRE/Expats). 2. Client Choice Data -> Goal: Social Proof/Inform -> Method: Chart.js Doughnut -> Justification: Visually reinforces the 85% statistic to push the 'Spécifique' formula. 3. Formulas -> Goal: Compare -> Method: Interactive Tabs (HTML/JS) -> Justification: Hides complex table data until requested, focusing attention on one tier at a time. Confirming NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-white">
+
+    <nav class="fixed w-full z-50 glass-panel shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-brand-gold font-serif font-bold text-xl">M</div>
+                    <span class="font-serif font-bold text-xl tracking-tight text-brand-dark">Mobilité Sans Couture</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#expertises" class="text-sm font-medium hover:text-brand-gold transition-colors">Notre Valeur</a>
+                    <a href="#formules" class="text-sm font-medium hover:text-brand-gold transition-colors">Les Formules</a>
+                    <a href="#ecosysteme" class="text-sm font-medium hover:text-brand-gold transition-colors">L'Écosystème</a>
+                    <a href="#contact" class="bg-brand-dark text-white px-6 py-2.5 rounded-sm text-sm font-medium hover:bg-brand-gold transition-colors shadow-lg">Prendre RDV</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <section class="relative min-h-[85vh] flex items-center overflow-hidden bg-brand-dark text-white">
+            <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #CBA135 25%, transparent 25%, transparent 75%, #CBA135 75%, #CBA135), repeating-linear-gradient(45deg, #CBA135 25%, #FDFBF7 25%, #FDFBF7 75%, #CBA135 75%, #CBA135); background-position: 0 0, 10px 10px; background-size: 20px 20px;"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-transparent"></div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col lg:flex-row items-center">
+                <div class="w-full lg:w-2/3 space-y-8 z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 text-brand-gold text-sm font-semibold tracking-wide uppercase">
+                        <span>&#x2B50;</span> Conciergerie Premium au Maroc
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-serif font-bold leading-tight">
+                        Dormez tranquille,<br>nous veillons sur <span class="text-brand-gold italic">l'essentiel.</span>
+                    </h1>
+                    <p class="text-lg text-gray-300 max-w-2xl font-light leading-relaxed">
+                        La solution clé en main pour sécuriser, gérer et faire fructifier vos intérêts au Maroc, sans la barrière de la distance.
+                    </p>
+
+                    <div class="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm max-w-xl">
+                        <p class="text-sm uppercase tracking-wider text-gray-400 mb-4 font-semibold">Personnalisez votre expérience :</p>
+                        <div class="flex flex-wrap gap-3 mb-4">
+                            <button onclick="setAudience('mre')" id="btn-mre" class="flex-1 min-w-[140px] px-4 py-3 rounded border border-brand-gold bg-brand-gold text-brand-dark font-medium transition-all duration-300">
+                                &#x1F3E2; Investisseur MRE
+                            </button>
+                            <button onclick="setAudience('expat')" id="btn-expat" class="flex-1 min-w-[140px] px-4 py-3 rounded border border-white/20 hover:border-brand-gold text-white font-medium transition-all duration-300">
+                                &#x1F4BC; Cadre Expatrié
+                            </button>
+                        </div>
+                        <p id="audience-text" class="text-brand-gold min-h-[3rem] transition-opacity duration-300 text-sm md:text-base font-medium">
+                            Maximisez le rendement de vos actifs immobiliers et financiers sans les soucis de gestion quotidienne.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="expertises" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-6">L'Engagement "Mobilité Sans Couture"</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Cette section analyse pourquoi la délégation stratégique est cruciale. Investir ou s'installer au Maroc exige une présence locale fiable. Découvrez à travers nos données comment notre accompagnement vous fait gagner du temps et de la sérénité.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <div class="flex gap-4 items-start">
+                            <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold text-2xl shrink-0">&#x1F512;</div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Sécurité & Discrétion</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">Confidentialité totale sur vos actifs et votre identité. Nous agissons comme votre bras droit opérationnel en toute ombre.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold text-2xl shrink-0">&#x1F91D;</div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Interlocuteur Unique</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">Finis les multiples prestataires. Une seule personne gère l'ensemble de votre écosystème patrimonial et personnel.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold text-2xl shrink-0">&#x1F4CA;</div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Expertise Locale Certifiée</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">Accès immédiat à un réseau fermé de partenaires certifiés : notaires, avocats, artisans de haut niveau, et cliniques VIP.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-sand rounded-2xl p-8 border border-gray-100 shadow-xl relative">
+                        <div class="absolute -top-4 -right-4 bg-brand-dark text-brand-gold text-xs font-bold px-3 py-1 rounded shadow-lg">L'Avis de l'Expert</div>
+                        <h3 class="text-center font-serif text-xl font-bold text-brand-dark mb-2">Le Choix de nos Clients</h3>
+                        <p class="text-center text-sm text-gray-500 mb-6">Répartition des souscriptions annuelles</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="adoptionChart"></canvas>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-white rounded-lg border border-brand-gold/30 text-center">
+                            <p class="text-sm font-medium italic text-gray-700">« 85% de nos clients optent pour la Formule Spécifique afin de déléguer l'intégralité des démarches, garantissant un ROI serein. »</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formules" class="py-24 bg-brand-sand">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-6">Trouvez la formule adaptée à vos ambitions</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Explorez nos trois niveaux d'accompagnement. Cliquez sur chaque formule ci-dessous pour révéler en détail les services couverts dans les domaines de l'immobilier, de l'investissement, de la santé, des véhicules et de l'administratif.
+                    </p>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-center gap-4 mb-12">
+                    <button onclick="switchFormula('basique')" id="tab-basique" class="tab-btn px-8 py-4 rounded-lg border-2 border-gray-300 font-bold transition-all text-gray-500 hover:border-brand-dark bg-white">
+                        FORMULE BASIQUE
+                    </button>
+                    <button onclick="switchFormula('specifique')" id="tab-specifique" class="tab-btn active px-8 py-4 rounded-lg border-2 font-bold transition-all transform hover:-translate-y-1 shadow-lg relative">
+                        <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-gold text-brand-dark text-[10px] uppercase tracking-wider px-2 py-1 rounded-full whitespace-nowrap">Recommandée</span>
+                        FORMULE SPÉCIFIQUE
+                    </button>
+                    <button onclick="switchFormula('premium')" id="tab-premium" class="tab-btn px-8 py-4 rounded-lg border-2 border-gray-300 font-bold transition-all text-gray-500 hover:border-brand-dark bg-white">
+                        FORMULE PREMIUM
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 min-h-[400px]">
+                    <div id="content-basique" class="formula-content hidden p-8 lg:p-12">
+                        <div class="mb-8 border-b border-gray-100 pb-4">
+                            <h3 class="text-2xl font-serif font-bold text-brand-dark">La couverture essentielle</h3>
+                            <p class="text-gray-500 mt-2">Pour une maintenance de base et le suivi courant de vos affaires.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div class="bg-gray-50 p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F3D8;</div><h4 class="font-bold mb-2">Immobilier</h4><p class="text-sm text-gray-600">Entretien courant & Gardiennage.</p></div>
+                            <div class="bg-gray-50 p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F4B9;</div><h4 class="font-bold mb-2">Investissement</h4><p class="text-sm text-gray-600">Suivi bancaire de base.</p></div>
+                            <div class="bg-gray-50 p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F697;</div><h4 class="font-bold mb-2">Véhicule</h4><p class="text-sm text-gray-600">Maintenance & Visite technique.</p></div>
+                            <div class="bg-gray-50 p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F3E5;</div><h4 class="font-bold mb-2">Santé</h4><p class="text-sm text-gray-600">Prise de RDV médicaux.</p></div>
+                            <div class="bg-gray-50 p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F4C4;</div><h4 class="font-bold mb-2">Administratif</h4><p class="text-sm text-gray-600">Paiement factures & taxes.</p></div>
+                        </div>
+                    </div>
+
+                    <div id="content-specifique" class="formula-content p-8 lg:p-12">
+                        <div class="mb-8 border-b border-brand-gold/30 pb-4">
+                            <h3 class="text-2xl font-serif font-bold text-brand-dark">Délégation complète <span class="text-brand-gold text-lg ml-2 font-sans font-medium px-2 py-1 bg-brand-gold/10 rounded">Notre Best-Seller</span></h3>
+                            <p class="text-gray-500 mt-2">Générez des revenus et gérez votre quotidien sans lever le petit doigt.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div class="bg-brand-sand border border-brand-gold/20 p-6 rounded-xl transition hover:shadow-md"><div class="text-2xl mb-3">&#x1F3D8;</div><h4 class="font-bold mb-2 text-brand-dark">Immobilier</h4><p class="text-sm text-gray-700">Gestion locative active & Mise en valeur de vos biens.</p></div>
+                            <div class="bg-brand-sand border border-brand-gold/20 p-6 rounded-xl transition hover:shadow-md"><div class="text-2xl mb-3">&#x1F4B9;</div><h4 class="font-bold mb-2 text-brand-dark">Investissement</h4><p class="text-sm text-gray-700">Conseil en placement & Reporting trimestriel détaillé.</p></div>
+                            <div class="bg-brand-sand border border-brand-gold/20 p-6 rounded-xl transition hover:shadow-md"><div class="text-2xl mb-3">&#x1F697;</div><h4 class="font-bold mb-2 text-brand-dark">Véhicule</h4><p class="text-sm text-gray-700">Convoyage, logistique & Entretien complet.</p></div>
+                            <div class="bg-brand-sand border border-brand-gold/20 p-6 rounded-xl transition hover:shadow-md"><div class="text-2xl mb-3">&#x1F3E5;</div><h4 class="font-bold mb-2 text-brand-dark">Santé</h4><p class="text-sm text-gray-700">Check-up annuel & Coordination totale des soins.</p></div>
+                            <div class="bg-brand-sand border border-brand-gold/20 p-6 rounded-xl transition hover:shadow-md"><div class="text-2xl mb-3">&#x1F4C4;</div><h4 class="font-bold mb-2 text-brand-dark">Administratif</h4><p class="text-sm text-gray-700">Démarches administratives complexes de A à Z.</p></div>
+                        </div>
+                    </div>
+
+                    <div id="content-premium" class="formula-content hidden p-8 lg:p-12">
+                        <div class="mb-8 border-b border-gray-100 pb-4">
+                            <h3 class="text-2xl font-serif font-bold text-brand-dark">L'Excellence absolue</h3>
+                            <p class="text-gray-500 mt-2">Un service de family office et conciergerie VIP pour une sérénité totale.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div class="bg-brand-dark text-white p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F3D8;</div><h4 class="font-bold mb-2 text-brand-gold">Immobilier</h4><p class="text-sm text-gray-300">Pilotage complet et stratégique du patrimoine immobilier.</p></div>
+                            <div class="bg-brand-dark text-white p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F4B9;</div><h4 class="font-bold mb-2 text-brand-gold">Investissement</h4><p class="text-sm text-gray-300">Recherche proactive d'opportunités & Optimisation fiscale.</p></div>
+                            <div class="bg-brand-dark text-white p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F697;</div><h4 class="font-bold mb-2 text-brand-gold">Véhicule</h4><p class="text-sm text-gray-300">Conciergerie automobile de luxe & Chauffeur privé sur demande.</p></div>
+                            <div class="bg-brand-dark text-white p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F3E5;</div><h4 class="font-bold mb-2 text-brand-gold">Santé</h4><p class="text-sm text-gray-300">Accès Réseau médical VIP & Assistance rapatriement.</p></div>
+                            <div class="bg-brand-dark text-white p-6 rounded-xl"><div class="text-2xl mb-3">&#x1F4C4;</div><h4 class="font-bold mb-2 text-brand-gold">Administratif</h4><p class="text-sm text-gray-300">Secrétariat privé & Gestion juridique et notariale dédiée.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosysteme" class="py-24 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-6">L'Écosystème de Confiance</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Inclus dans toutes nos offres majeures, ces services transversaux constituent le cœur de notre promesse. Interagissez avec les cartes ci-dessous pour comprendre comment nous assurons votre sécurité, votre contrôle digital et votre confort dès le premier jour.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="group relative bg-brand-sand rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-brand-gold/30 cursor-crosshair">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-3xl shadow-sm mb-6 group-hover:scale-110 transition-transform text-brand-dark">&#x1F6A8;</div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-4">Urgence 24h/24 & 7j/7</h3>
+                        <p class="text-gray-600 font-medium mb-4">La Sérénité Totale</p>
+                        <p class="text-sm text-gray-500 leading-relaxed group-hover:text-gray-700 transition-colors">
+                            Fuite d'eau, perte de clés, urgence médicale ou incident routier : notre équipe intervient immédiatement. Vous n'êtes jamais seul, même à 5 000 km.
+                        </p>
+                    </div>
+
+                    <div class="group relative bg-brand-dark rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-transparent cursor-crosshair">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-bl-full -z-0"></div>
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-3xl shadow-sm mb-6 group-hover:scale-110 transition-transform text-brand-gold z-10 relative">&#x1F4BB;</div>
+                        <h3 class="text-xl font-bold text-white mb-4 z-10 relative">Votre Dashboard Client</h3>
+                        <p class="text-brand-gold font-medium mb-4 z-10 relative">Le Pilotage à Distance</p>
+                        <ul class="text-sm text-gray-300 space-y-2 z-10 relative">
+                            <li class="flex gap-2 items-center"><span>&#x2713;</span> État des revenus locatifs</li>
+                            <li class="flex gap-2 items-center"><span>&#x2713;</span> Avancement des démarches</li>
+                            <li class="flex gap-2 items-center"><span>&#x2713;</span> Planning de maintenance</li>
+                            <li class="flex gap-2 items-center"><span>&#x2713;</span> Archives fiscales numérisées</li>
+                        </ul>
+                    </div>
+
+                    <div class="group relative bg-brand-sand rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-brand-gold/30 cursor-crosshair">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-3xl shadow-sm mb-6 group-hover:scale-110 transition-transform text-brand-dark">&#x1F381;</div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-4">Welcome Pack Premium</h3>
+                        <p class="text-gray-600 font-medium mb-4">Opérationnel immédiatement</p>
+                        <ul class="text-sm text-gray-500 space-y-2 group-hover:text-gray-700 transition-colors">
+                            <li class="flex gap-2 items-start"><span>&#x2022;</span> Clé USB sécurisée (documents)</li>
+                            <li class="flex gap-2 items-start"><span>&#x2022;</span> Annuaire de contacts VIP</li>
+                            <li class="flex gap-2 items-start"><span>&#x2022;</span> Carte SIM locale prête</li>
+                            <li class="flex gap-2 items-start"><span>&#x2022;</span> Numéro fiscal & assistance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-brand-dark text-white relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 text-[300px] opacity-5 font-serif leading-none">&#x201D;</div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div class="text-brand-gold text-4xl mb-6">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+                <blockquote class="text-2xl md:text-3xl font-serif font-light leading-relaxed mb-8 italic">
+                    "Vivre à Londres et gérer deux appartements à Casablanca ainsi qu'une villa à Tanger était un cauchemar logistique. Depuis que j'ai souscrit à la formule Premium, je reçois simplement un rapport mensuel et mes loyers. La discrétion et l'efficacité de leurs équipes sont sans équivalent."
+                </blockquote>
+                <div class="flex items-center justify-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-gold text-xl">Y</div>
+                    <div class="text-left">
+                        <p class="font-bold text-lg">Yassine R.</p>
+                        <p class="text-brand-gold text-sm">Directeur de Fonds d'Investissement, Londres</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 bg-brand-sand">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark mb-6">Prêt à libérer votre esprit ?</h2>
+                <p class="text-xl text-gray-600 mb-10">Votre prochain chapitre commence ici. Réservez votre consultation privée pour définir votre offre sur-mesure.</p>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-xl mx-auto mb-10">
+                    <div class="space-y-6 text-left">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-sand flex items-center justify-center text-brand-dark">&#x1F4DE;</div>
+                            <div>
+                                <p class="text-sm text-gray-500">Téléphone (Ligne directe)</p>
+                                <p class="font-bold text-lg text-brand-dark">+212 (0) 6 61 50 53 50</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-sand flex items-center justify-center text-brand-dark">&#x2709;</div>
+                            <div>
+                                <p class="text-sm text-gray-500">Email sécurisé</p>
+                                <p class="font-bold text-lg text-brand-dark">contact@mobilitesanscouture.ma</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <button class="inline-flex items-center gap-2 bg-brand-dark text-white px-8 py-4 rounded font-bold text-lg hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 shadow-xl transform hover:-translate-y-1">
+                    Réserver ma consultation privée <span>&#x2192;</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-brand-dark text-gray-400 py-8 border-t border-white/10 text-center text-sm">
+        <p>&copy; 2026 Mobilité Sans Couture. Tous droits réservés. Discrétion absolue garantie.</p>
+    </footer>
+
+    <script>
+        const audienceData = {
+            'mre': {
+                text: "Maximisez le rendement de vos actifs immobiliers et financiers sans les soucis de gestion quotidienne. Nous sécurisons votre patrimoine à distance.",
+                btnActive: 'btn-mre',
+                btnInactive: 'btn-expat'
+            },
+            'expat': {
+                text: "Profitez d'une installation fluide et d'un quotidien protégé pour vous concentrer exclusivement sur vos missions de direction. Nous gérons le reste.",
+                btnActive: 'btn-expat',
+                btnInactive: 'btn-mre'
+            }
+        };
+
+        function setAudience(type) {
+            const textEl = document.getElementById('audience-text');
+            const data = audienceData[type];
+            
+            textEl.style.opacity = 0;
+            setTimeout(() => {
+                textEl.innerText = data.text;
+                textEl.style.opacity = 1;
+            }, 300);
+
+            const activeBtn = document.getElementById(data.btnActive);
+            const inactiveBtn = document.getElementById(data.btnInactive);
+
+            activeBtn.className = "flex-1 min-w-[140px] px-4 py-3 rounded border border-brand-gold bg-brand-gold text-brand-dark font-medium transition-all duration-300";
+            inactiveBtn.className = "flex-1 min-w-[140px] px-4 py-3 rounded border border-white/20 hover:border-brand-gold text-white font-medium transition-all duration-300 bg-transparent";
+        }
+
+        const formulas = ['basique', 'specifique', 'premium'];
+        
+        function switchFormula(selected) {
+            formulas.forEach(formula => {
+                const btn = document.getElementById(`tab-${formula}`);
+                const content = document.getElementById(`content-${formula}`);
+                
+                if (formula === selected) {
+                    btn.classList.add('active', 'shadow-lg');
+                    btn.classList.remove('text-gray-500', 'bg-white', 'border-gray-300');
+                    content.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active', 'shadow-lg');
+                    btn.classList.add('text-gray-500', 'bg-white', 'border-gray-300');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('adoptionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Formule Spécifique', 'Premium & Basique'],
+                    datasets: [{
+                        data: [85, 15],
+                        backgroundColor: [
+                            '#0F172A', 
+                            '#e2e8f0'  
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: {
+                            display: false 
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            },
+                            backgroundColor: '#0F172A',
+                            titleFont: { family: 'Montserrat' },
+                            bodyFont: { family: 'Montserrat' },
+                            padding: 12,
+                            cornerRadius: 4
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                },
+                plugins: [{
+                    id: 'textCenter',
+                    beforeDraw: function(chart) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 114).toFixed(2);
+                        ctx.font = "bold " + fontSize + "em Montserrat";
+                        ctx.textBaseline = "middle";
+                        ctx.fillStyle = "#CBA135";
+
+                        var text = "85%",
+                            textX = Math.round((width - ctx.measureText(text).width) / 2),
+                            textY = height / 2;
+
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            });
+
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('bg-white/90');
+                    nav.classList.remove('glass-panel');
+                } else {
+                    nav.classList.remove('bg-white/90');
+                    nav.classList.add('glass-panel');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
